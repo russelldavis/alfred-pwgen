@@ -64,6 +64,34 @@ class AlphanumGenerator(PassGenBase):
         return string.ascii_letters + string.digits
 
 
+class AsciiClearWithMinimumsGenerator(PassGenBase):
+    """Simple ASCII password generator w/out confusable characters, and at least 1 number and symbol"""
+
+    @property
+    def id(self):
+        return 'ascii-clear-with-minimums'
+
+    @property
+    def name(self):
+        return 'Clear ASCII with symbols and minimums'
+
+    @property
+    def description(self):
+        return 'With symbols'
+
+    @property
+    def data(self):
+        data = (set(string.ascii_letters) | set(string.digits) | set(punctuation))
+        data = data - set('iIlL10Oo')
+        return ''.join(data)
+
+    def password(self, strength=None, length=None):
+        while True:
+            pw, entropy = super(AsciiClearWithMinimumsGenerator, self).password(strength=strength, length=length)
+            if any(char in pw for char in string.digits) and any(char in pw for char in punctuation):
+                return pw, entropy
+
+
 class AlphanumClearGenerator(PassGenBase):
     """Simple alphanumeric password generator w/out confusable characters."""
 
@@ -77,7 +105,7 @@ class AlphanumClearGenerator(PassGenBase):
 
     @property
     def description(self):
-        return 'ASCII characters, no confusing characters or punctuation'
+        return 'No symbols'
 
     @property
     def data(self):

@@ -54,7 +54,10 @@ ENTROPY_PER_LEVEL = 32
 
 # string.punctuation contains a few characters we don't want
 # like backslash and tilde
-punctuation = """!"#$%&'()*+,-./:;<=>?@[]^_{|}"""
+# punctuation = """!"#$%&'()*+,-./:;<=>?@[]^_{|}"""
+
+# Keep it even more basic to avoid confusion and sites with stricter requirements
+punctuation = """!@#$%*,.;?^_"""
 
 
 class PassGenBase(object):
